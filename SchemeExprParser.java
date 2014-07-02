@@ -101,7 +101,7 @@ public class SchemeExprParser extends Parser {
 				setState(7); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 2) | (1L << BOOLEAN) | (1L << ID) | (1L << DOUBLE))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 2) | (1L << BOOLEAN) | (1L << IF) | (1L << ID) | (1L << DOUBLE))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -144,12 +144,14 @@ public class SchemeExprParser extends Parser {
 		}
 	}
 	public static class IflContext extends ExprContext {
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
+		public TerminalNode RATOR() { return getToken(SchemeExprParser.RATOR, 0); }
 		public IflContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -162,6 +164,23 @@ public class SchemeExprParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitIfl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BooleanContext extends ExprContext {
+		public TerminalNode BOOLEAN() { return getToken(SchemeExprParser.BOOLEAN, 0); }
+		public BooleanContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).enterBoolean(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).exitBoolean(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitBoolean(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -185,23 +204,6 @@ public class SchemeExprParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class BoollContext extends ExprContext {
-		public TerminalNode BOOLEAN() { return getToken(SchemeExprParser.BOOLEAN, 0); }
-		public BoollContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).enterBooll(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).exitBooll(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitBooll(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class IdlContext extends ExprContext {
 		public TerminalNode ID() { return getToken(SchemeExprParser.ID, 0); }
 		public IdlContext(ExprContext ctx) { copyFrom(ctx); }
@@ -220,6 +222,7 @@ public class SchemeExprParser extends Parser {
 		}
 	}
 	public static class ApplContext extends ExprContext {
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -259,7 +262,7 @@ public class SchemeExprParser extends Parser {
 				break;
 
 			case 2:
-				_localctx = new BoollContext(_localctx);
+				_localctx = new BooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(10); match(BOOLEAN);
@@ -279,11 +282,11 @@ public class SchemeExprParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(12); match(2);
-				setState(13); match(RATOR);
+				setState(13); ((ApplContext)_localctx).op = match(RATOR);
 				setState(17);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 2) | (1L << BOOLEAN) | (1L << ID) | (1L << DOUBLE))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 2) | (1L << BOOLEAN) | (1L << IF) | (1L << ID) | (1L << DOUBLE))) != 0)) {
 					{
 					{
 					setState(14); expr();
@@ -313,9 +316,9 @@ public class SchemeExprParser extends Parser {
 				_localctx = new IflContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(27); match(2);
-				setState(28); match(IF);
-				setState(29); expr();
+				setState(27); match(IF);
+				setState(28); match(2);
+				setState(29); ((IflContext)_localctx).op = match(RATOR);
 				setState(30); expr();
 				setState(31); expr();
 				setState(32); match(1);
@@ -343,7 +346,7 @@ public class SchemeExprParser extends Parser {
 		"\2\2\r%\7\13\2\2\16\17\7\4\2\2\17\23\7\5\2\2\20\22\5\4\3\2\21\20\3\2\2"+
 		"\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\26\3\2\2\2\25\23\3\2\2"+
 		"\2\26%\7\3\2\2\27\30\7\4\2\2\30\31\7\t\2\2\31\32\7\13\2\2\32\33\5\4\3"+
-		"\2\33\34\7\3\2\2\34%\3\2\2\2\35\36\7\4\2\2\36\37\7\n\2\2\37 \5\4\3\2 "+
+		"\2\33\34\7\3\2\2\34%\3\2\2\2\35\36\7\n\2\2\36\37\7\4\2\2\37 \7\5\2\2 "+
 		"!\5\4\3\2!\"\5\4\3\2\"#\7\3\2\2#%\3\2\2\2$\13\3\2\2\2$\f\3\2\2\2$\r\3"+
 		"\2\2\2$\16\3\2\2\2$\27\3\2\2\2$\35\3\2\2\2%\5\3\2\2\2\5\t\23$";
 	public static final ATN _ATN =

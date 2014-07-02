@@ -7,14 +7,14 @@ prog: expr+ # progl
  ;
 
 expr: DOUBLE                    #doublel
- | BOOLEAN                      #booll
+ | BOOLEAN                      #boolean
  | ID                           #idl
- | '(' RATOR expr* ')'          #appl
+ | '(' op=RATOR expr* ')'       #appl
  | '(' 'def' ID expr ')'        #defl
- | '(' 'if' expr expr expr ')'  #ifl
+ | '(' 'if' expr expr expr')'  #ifl
  ;
 
-RATOR: ARITHMETIC | RELATIONAL | BOOLEAN;
+RATOR: ARITHMETIC | RELATIONAL ;
 ARITHMETIC: PLUS|MINUS|MUL|DIV;
 RELATIONAL: EQUAL|GREATER|LESSER;
 BOOLEAN: TRUE|FALSE|AND|OR|NOT;

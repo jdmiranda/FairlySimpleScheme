@@ -30,6 +30,17 @@ public interface SchemeExprListener extends ParseTreeListener {
 	void exitDoublel(@NotNull SchemeExprParser.DoublelContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#defl}.
 	 * @param ctx the parse tree
 	 */
@@ -72,15 +83,4 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdl(@NotNull SchemeExprParser.IdlContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link SchemeExprParser#booll}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooll(@NotNull SchemeExprParser.BoollContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SchemeExprParser#booll}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooll(@NotNull SchemeExprParser.BoollContext ctx);
 }

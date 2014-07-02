@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ApplyPlus implements Apply {
 
-    public Double apply(List<Double> args) {
+    public Object apply(List<Object> args) {
         double ret = 0.0;
-        for (Double v : args) {
-            ret += v;
+        for (Object v : args) {
+            ret +=  (Double) v;
         }
         return ret;
     }

@@ -23,6 +23,12 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfl(@NotNull SchemeExprParser.IflContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#defl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -34,12 +40,6 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProgl(@NotNull SchemeExprParser.ProglContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SchemeExprParser#booll}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBooll(@NotNull SchemeExprParser.BoollContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#idl}.
 	 * @param ctx the parse tree

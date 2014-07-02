@@ -4,6 +4,9 @@
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
+
+import java.lang.Double;
+import java.lang.Override;
 import java.lang.String;
 import java.util.*;
 import static java.lang.String.*;
@@ -14,22 +17,25 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Double> {
 
     static Apply plus = new ApplyPlus();
     static Apply minus = new ApplyMinus();
-    static Apply times = new ApplyTimes();
+    static Apply times = new ApplyMul();
     static Apply div = new ApplyDiv();
+    static Apply greater = new ApplyGreater();
+    static Val less = new ApplyLess();
+    static Apply equal = new ApplyEqual();
 
-    HashMap<String,Double> symbols;
+    HashMap<String,Object> symbols;
 
     public SchemeEvalVisitor() {
-        symbols = new HashMap<String,Double>();
+        symbols = new HashMap<String,Object>();
     }
 
-    public Double visitAppl(SchemeExprParser.ApplContext ctx) {
+    public Object visitAppl(SchemeExprParser.ApplContext ctx) {
         // evaluate operands and collect their values
-        List<Double> args = new ArrayList<Double>();
+        List<Object> args = new ArrayList<Object>();
         for (SchemeExprParser.ExprContext expr : ctx.expr())
             args.add(visit(expr));
         // apply operator to args
-        Double res = 0.0;
+        Object res = 0.0;
         switch (ctx.op.getText().charAt(0)) {
             case '+': res = plus.apply(args); break;
             case '-': res = minus.apply(args); break;
@@ -38,24 +44,28 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Double> {
         }
         return res;
     }
-    public boolean visitBooll(SchemeExprParser.BoollContext ctx){
-        boolean val = valueOf(ctx.boolean().getText());
-        boolean testVal;
-        if (val == "true") testVal = true;
-        if (val == "false") testVal = false;
-        return testVal;
+
+    @Override
+    public Double visitBoolean(SchemeExprParser.BooleanContext ctx){
+        boolean val =  Boolean.valueOf(ctx.getText());
+       Double valD = val ? 1.0 : 0.0;
+        return valD;
     }
 
     public Double visitIfl(SchemeExprParser.IflContext ctx){
-        Bool testVal = visit(ctx.expr(0));
-        Double val;
-        if (testVal == true){
-            val = visit(ctx.expr(1));
-        }
-        else {
-            val = visit(ctx.expr(2));
+        List<Double> args = new ArrayList<Double>();
+        for (SchemeExprParser.ExprContext expr : ctx.expr())
+            args.add(visit(expr));
+        // apply operator to args
+        Object res ;
+        switch (ctx.op.getText().charAt(0)) {
+            case '<': res = greater.apply(args); break;
+            case '>': res = less.apply(args); break;
+            case '=': res = equal.apply(args); break;
         }
 
+        Object val = visitBoolean(ctx.expr) ? visit(ctx.expr(1)) : visit(ctx.expr(2));
+        return res;
     }
 
     public Double visitDefl(SchemeExprParser.DeflContext ctx) {

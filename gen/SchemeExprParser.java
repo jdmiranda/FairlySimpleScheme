@@ -165,6 +165,23 @@ public class SchemeExprParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class BooleanContext extends ExprContext {
+		public TerminalNode BOOLEAN() { return getToken(SchemeExprParser.BOOLEAN, 0); }
+		public BooleanContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).enterBoolean(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).exitBoolean(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitBoolean(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class DeflContext extends ExprContext {
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
@@ -186,6 +203,7 @@ public class SchemeExprParser extends Parser {
 		}
 	}
 	public static class ApplContext extends ExprContext {
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -225,23 +243,6 @@ public class SchemeExprParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class BoollContext extends ExprContext {
-		public TerminalNode BOOLEAN() { return getToken(SchemeExprParser.BOOLEAN, 0); }
-		public BoollContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).enterBooll(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).exitBooll(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitBooll(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
@@ -258,7 +259,7 @@ public class SchemeExprParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new BoollContext(_localctx);
+				_localctx = new BooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(10); match(BOOLEAN);
@@ -276,7 +277,7 @@ public class SchemeExprParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(12); match(T__0);
-				setState(13); match(RATOR);
+				setState(13); ((ApplContext)_localctx).op = match(RATOR);
 				setState(17);
 				_errHandler.sync(this);
 				_la = _input.LA(1);

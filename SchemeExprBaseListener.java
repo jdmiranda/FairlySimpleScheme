@@ -42,6 +42,19 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBoolean(@NotNull SchemeExprParser.BooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolean(@NotNull SchemeExprParser.BooleanContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDefl(@NotNull SchemeExprParser.DeflContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -88,19 +101,6 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdl(@NotNull SchemeExprParser.IdlContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBooll(@NotNull SchemeExprParser.BoollContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooll(@NotNull SchemeExprParser.BoollContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

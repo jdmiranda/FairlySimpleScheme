@@ -33,6 +33,14 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitBoolean(@NotNull SchemeExprParser.BooleanContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitDefl(@NotNull SchemeExprParser.DeflContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -58,12 +66,4 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIdl(@NotNull SchemeExprParser.IdlContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitBooll(@NotNull SchemeExprParser.BoollContext ctx) { return visitChildren(ctx); }
 }
