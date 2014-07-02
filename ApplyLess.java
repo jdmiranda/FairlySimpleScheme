@@ -6,7 +6,7 @@ import java.util.List;
 public class ApplyLess implements Val {
 
     @Override
-    public Object val(List<Object> args) {
-        return (Double)args.get(0) < (Double)args.get(1);
+    public Object val(List<Double> args) {
+        return args.get(0) < args.get(1);
     }
 }

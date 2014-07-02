@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ApplyMul implements Apply {
 
-    public Object apply(List<Object> args) {
+    public Object apply(List<Double> args) {
         double ret = 0.0;
-        for (Object v : args) {
-            ret = (Double)ret * (Double)v;
+        for (Double v : args) {
+            ret = ret * v;
         }
         return ret;
     }

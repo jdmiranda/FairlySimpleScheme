@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface Apply {
 
-    public Object apply(List<Object> args);
+    public Object apply(List<Double> args);
 
 }
