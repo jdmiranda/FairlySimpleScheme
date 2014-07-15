@@ -248,26 +248,6 @@ public class SchemeExprParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class BeginlContext extends ExprContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public TerminalNode BEGIN() { return getToken(SchemeExprParser.BEGIN, 0); }
-		public BeginlContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).enterBeginl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SchemeExprListener ) ((SchemeExprListener)listener).exitBeginl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SchemeExprVisitor ) return ((SchemeExprVisitor<? extends T>)visitor).visitBeginl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class IdlContext extends ExprContext {
 		public TerminalNode ID() { return getToken(SchemeExprParser.ID, 0); }
 		public IdlContext(ExprContext ctx) { copyFrom(ctx); }
@@ -293,6 +273,7 @@ public class SchemeExprParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
+		public TerminalNode BEGIN() { return getToken(SchemeExprParser.BEGIN, 0); }
 		public RatorContext rator() {
 			return getRuleContext(RatorContext.class,0);
 		}
@@ -317,14 +298,14 @@ public class SchemeExprParser extends Parser {
 		enterRule(_localctx, 2, RULE_expr);
 		int _la;
 		try {
-			setState(59);
-			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			setState(63);
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new ApplContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(17); match(T__0);
-				setState(18); ((ApplContext)_localctx).op = rator();
+				setState(18); match(BEGIN);
 				setState(22);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -342,78 +323,90 @@ public class SchemeExprParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new DoublelContext(_localctx);
+				_localctx = new ApplContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(27); match(DOUBLE);
+				setState(26); match(T__0);
+				setState(27); ((ApplContext)_localctx).op = rator();
+				setState(31);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << BOOLEAN) | (1L << DOUBLE) | (1L << ID))) != 0)) {
+					{
+					{
+					setState(28); expr();
+					}
+					}
+					setState(33);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
 				}
-				break;
-			case 3:
-				_localctx = new BooleanlContext(_localctx);
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(28); match(BOOLEAN);
-				}
-				break;
-			case 4:
-				_localctx = new IdlContext(_localctx);
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(29); match(ID);
-				}
-				break;
-			case 5:
-				_localctx = new DeflContext(_localctx);
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(30); match(T__0);
-				setState(31); match(DEF);
-				setState(32); match(ID);
-				setState(33); expr();
 				setState(34); match(T__1);
 				}
 				break;
+			case 3:
+				_localctx = new DoublelContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(36); match(DOUBLE);
+				}
+				break;
+			case 4:
+				_localctx = new BooleanlContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(37); match(BOOLEAN);
+				}
+				break;
+			case 5:
+				_localctx = new IdlContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(38); match(ID);
+				}
+				break;
 			case 6:
-				_localctx = new IflContext(_localctx);
+				_localctx = new DeflContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(36); match(T__0);
-				setState(37); match(IF);
-				setState(38); expr();
-				setState(39); expr();
-				setState(40); expr();
-				setState(41); match(T__1);
+				setState(39); match(T__0);
+				setState(40); match(DEF);
+				setState(41); match(ID);
+				setState(42); expr();
+				setState(43); match(T__1);
 				}
 				break;
 			case 7:
-				_localctx = new PrintlContext(_localctx);
+				_localctx = new IflContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(43); match(T__0);
-				setState(44); match(PRINT);
-				setState(45); expr();
-				setState(46); match(T__1);
+				setState(45); match(T__0);
+				setState(46); match(IF);
+				setState(47); expr();
+				setState(48); expr();
+				setState(49); expr();
+				setState(50); match(T__1);
 				}
 				break;
 			case 8:
-				_localctx = new WhilelContext(_localctx);
+				_localctx = new PrintlContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(48); match(T__0);
-				setState(49); match(WHILE);
-				setState(50); expr();
-				setState(51); expr();
-				setState(52); match(T__1);
+				setState(52); match(T__0);
+				setState(53); match(PRINT);
+				setState(54); expr();
+				setState(55); match(T__1);
 				}
 				break;
 			case 9:
-				_localctx = new BeginlContext(_localctx);
+				_localctx = new WhilelContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(54); match(T__0);
-				setState(55); match(BEGIN);
-				setState(56); expr();
-				setState(57); match(T__1);
+				setState(57); match(T__0);
+				setState(58); match(WHILE);
+				setState(59); expr();
+				setState(60); expr();
+				setState(61); match(T__1);
 				}
 				break;
 			}
@@ -462,7 +455,7 @@ public class SchemeExprParser extends Parser {
 		RatorContext _localctx = new RatorContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_rator);
 		try {
-			setState(64);
+			setState(68);
 			switch (_input.LA(1)) {
 			case PLUS:
 			case MINUS:
@@ -470,7 +463,7 @@ public class SchemeExprParser extends Parser {
 			case DIV:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(61); arithRator();
+				setState(65); arithRator();
 				}
 				break;
 			case EQ:
@@ -478,7 +471,7 @@ public class SchemeExprParser extends Parser {
 			case LT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(62); relationalRator();
+				setState(66); relationalRator();
 				}
 				break;
 			case AND:
@@ -486,7 +479,7 @@ public class SchemeExprParser extends Parser {
 			case NOT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(63); booleanRator();
+				setState(67); booleanRator();
 				}
 				break;
 			default:
@@ -535,7 +528,7 @@ public class SchemeExprParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66);
+			setState(70);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PLUS) | (1L << MINUS) | (1L << MUL) | (1L << DIV))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -584,7 +577,7 @@ public class SchemeExprParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68);
+			setState(72);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQ) | (1L << GT) | (1L << LT))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -633,7 +626,7 @@ public class SchemeExprParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70);
+			setState(74);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AND) | (1L << OR) | (1L << NOT))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -653,26 +646,27 @@ public class SchemeExprParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\27K\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\27O\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\6\2\20\n\2\r\2\16\2\21\3\3\3\3"+
-		"\3\3\7\3\27\n\3\f\3\16\3\32\13\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\7\3\27\n\3\f\3\16\3\32\13\3\3\3\3\3\3\3\3\3\7\3 \n\3\f\3\16\3#\13"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3>\n\3\3\4\3\4\3\4\5\4C\n\4\3\5\3\5\3\6"+
-		"\3\6\3\7\3\7\3\7\2\2\b\2\4\6\b\n\f\2\5\3\2\16\21\3\2\22\24\3\2\25\27P"+
-		"\2\17\3\2\2\2\4=\3\2\2\2\6B\3\2\2\2\bD\3\2\2\2\nF\3\2\2\2\fH\3\2\2\2\16"+
-		"\20\5\4\3\2\17\16\3\2\2\2\20\21\3\2\2\2\21\17\3\2\2\2\21\22\3\2\2\2\22"+
-		"\3\3\2\2\2\23\24\7\4\2\2\24\30\5\6\4\2\25\27\5\4\3\2\26\25\3\2\2\2\27"+
-		"\32\3\2\2\2\30\26\3\2\2\2\30\31\3\2\2\2\31\33\3\2\2\2\32\30\3\2\2\2\33"+
-		"\34\7\3\2\2\34>\3\2\2\2\35>\7\13\2\2\36>\7\n\2\2\37>\7\f\2\2 !\7\4\2\2"+
-		"!\"\7\5\2\2\"#\7\f\2\2#$\5\4\3\2$%\7\3\2\2%>\3\2\2\2&\'\7\4\2\2\'(\7\6"+
-		"\2\2()\5\4\3\2)*\5\4\3\2*+\5\4\3\2+,\7\3\2\2,>\3\2\2\2-.\7\4\2\2./\7\7"+
-		"\2\2/\60\5\4\3\2\60\61\7\3\2\2\61>\3\2\2\2\62\63\7\4\2\2\63\64\7\b\2\2"+
-		"\64\65\5\4\3\2\65\66\5\4\3\2\66\67\7\3\2\2\67>\3\2\2\289\7\4\2\29:\7\t"+
-		"\2\2:;\5\4\3\2;<\7\3\2\2<>\3\2\2\2=\23\3\2\2\2=\35\3\2\2\2=\36\3\2\2\2"+
-		"=\37\3\2\2\2= \3\2\2\2=&\3\2\2\2=-\3\2\2\2=\62\3\2\2\2=8\3\2\2\2>\5\3"+
-		"\2\2\2?C\5\b\5\2@C\5\n\6\2AC\5\f\7\2B?\3\2\2\2B@\3\2\2\2BA\3\2\2\2C\7"+
-		"\3\2\2\2DE\t\2\2\2E\t\3\2\2\2FG\t\3\2\2G\13\3\2\2\2HI\t\4\2\2I\r\3\2\2"+
-		"\2\6\21\30=B";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3B\n\3\3\4\3\4\3\4"+
+		"\5\4G\n\4\3\5\3\5\3\6\3\6\3\7\3\7\3\7\2\2\b\2\4\6\b\n\f\2\5\3\2\16\21"+
+		"\3\2\22\24\3\2\25\27U\2\17\3\2\2\2\4A\3\2\2\2\6F\3\2\2\2\bH\3\2\2\2\n"+
+		"J\3\2\2\2\fL\3\2\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\21\3\2\2\2\21\17\3"+
+		"\2\2\2\21\22\3\2\2\2\22\3\3\2\2\2\23\24\7\4\2\2\24\30\7\t\2\2\25\27\5"+
+		"\4\3\2\26\25\3\2\2\2\27\32\3\2\2\2\30\26\3\2\2\2\30\31\3\2\2\2\31\33\3"+
+		"\2\2\2\32\30\3\2\2\2\33B\7\3\2\2\34\35\7\4\2\2\35!\5\6\4\2\36 \5\4\3\2"+
+		"\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2$"+
+		"%\7\3\2\2%B\3\2\2\2&B\7\13\2\2\'B\7\n\2\2(B\7\f\2\2)*\7\4\2\2*+\7\5\2"+
+		"\2+,\7\f\2\2,-\5\4\3\2-.\7\3\2\2.B\3\2\2\2/\60\7\4\2\2\60\61\7\6\2\2\61"+
+		"\62\5\4\3\2\62\63\5\4\3\2\63\64\5\4\3\2\64\65\7\3\2\2\65B\3\2\2\2\66\67"+
+		"\7\4\2\2\678\7\7\2\289\5\4\3\29:\7\3\2\2:B\3\2\2\2;<\7\4\2\2<=\7\b\2\2"+
+		"=>\5\4\3\2>?\5\4\3\2?@\7\3\2\2@B\3\2\2\2A\23\3\2\2\2A\34\3\2\2\2A&\3\2"+
+		"\2\2A\'\3\2\2\2A(\3\2\2\2A)\3\2\2\2A/\3\2\2\2A\66\3\2\2\2A;\3\2\2\2B\5"+
+		"\3\2\2\2CG\5\b\5\2DG\5\n\6\2EG\5\f\7\2FC\3\2\2\2FD\3\2\2\2FE\3\2\2\2G"+
+		"\7\3\2\2\2HI\t\2\2\2I\t\3\2\2\2JK\t\3\2\2K\13\3\2\2\2LM\t\4\2\2M\r\3\2"+
+		"\2\2\7\21\30!AF";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

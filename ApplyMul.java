@@ -6,13 +6,12 @@ import java.util.List;
 
 
 public class ApplyMul implements Apply {
-
-    public Object apply(List<Double> args) {
+    public Val apply(List<Val> args) {
         double ret = 0.0;
-        for (Double v : args) {
-            ret = ret * v;
+        for (Val v : args) {
+            ret = ret * v.getDouble();
         }
-        return ret;
+        return new Val(ret);
     }
 
 }

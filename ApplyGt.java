@@ -6,8 +6,7 @@ import java.util.List;
 class ApplyGt implements Apply {
     public Val apply(List<Val> args) {
         if (args.size()==0) {
-            System.out.println("Warning: 'gt' requires at
-                    least one operand");
+            System.out.println("Warning: 'gt' requires at least one operand");
             return new Val(false);
         }
         double d = args.get(0).getDouble();

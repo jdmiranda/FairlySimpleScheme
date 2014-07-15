@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
 import java.util.*;
+import java.lang.Iterable;
 
 
 public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
@@ -13,7 +14,7 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
 
     static Apply plus = new ApplyPlus();
     static Apply minus = new ApplyMinus();
-    static Apply times = new ApplyTimes();
+    static Apply times = new ApplyMul();
     static Apply div = new ApplyDiv();
     static Apply eq = new ApplyEq();
     static Apply gt = new ApplyGt();
@@ -87,6 +88,30 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
             return visit(ctx.expr(1));
         else
             return visit(ctx.expr(2));
+    }
+
+    public Val visitWhilel(SchemeExprParser.WhilelContext ctx) {
+        Val ret = new Val();
+        while (visit(ctx.expr(0)).getBoolean()) {
+            ret = visit(ctx.expr(1));
+            return ret;
+        }
+        return ret;
+
+    }
+
+   /* public Val visitBeginl(SchemeExprParser.BeginlContext ctx) {
+        List<Val> ls = new ArrayList<Val>();
+        for (SchemeExprParser.ExprContext expr : ctx.expr())
+            ls.add(visit(expr));
+        return  ls(ls.size - 1);
+
+    }
+*/
+    public Val visitPrintl(SchemeExprParser.PrintlContext ctx) {
+
+        System.out.println(visit(ctx.expr()));
+        return visit(ctx.expr());
     }
 }
 

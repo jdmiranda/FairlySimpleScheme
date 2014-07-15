@@ -1,6 +1,7 @@
 /********************** 
  * Val.java 
  *********************/
+
 public class Val {
 
     static enum ValType { DOUBLE, BOOLEAN };
@@ -49,8 +50,7 @@ public class Val {
 
             case DOUBLE: res = this.d.toString(); break;
             case BOOLEAN: res = this.b.toString(); break;
-            default: throw new RuntimeException("Val: unknown
-                    type");
+            default: throw new RuntimeException("Val: unknown type");
         }
         return res;
     }

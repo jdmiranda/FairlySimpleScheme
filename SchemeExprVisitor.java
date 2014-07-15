@@ -11,11 +11,25 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link SchemeExprParser#ifl}.
+	 * Visit a parse tree produced by {@link SchemeExprParser#whilel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfl(@NotNull SchemeExprParser.IflContext ctx);
+	T visitWhilel(@NotNull SchemeExprParser.WhilelContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#arithRator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#doublel}.
@@ -25,11 +39,25 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDoublel(@NotNull SchemeExprParser.DoublelContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * Visit a parse tree produced by {@link SchemeExprParser#printl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+	T visitPrintl(@NotNull SchemeExprParser.PrintlContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#relationalRator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelationalRator(@NotNull SchemeExprParser.RelationalRatorContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#booleanRator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#defl}.
@@ -58,4 +86,18 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdl(@NotNull SchemeExprParser.IdlContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#ifl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfl(@NotNull SchemeExprParser.IflContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#rator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRator(@NotNull SchemeExprParser.RatorContext ctx);
 }

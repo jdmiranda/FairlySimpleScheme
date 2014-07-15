@@ -1,23 +1,26 @@
-/***********
- * ApplyMinus.java
+/*********** 
+ * ApplyMinus.java 
  ***********/
-import java.util.List;
 
+import java.util.List;
 
 public class ApplyMinus implements Apply {
 
-    public Object apply(List<Double> args) {
+    public Val apply(List<Val> args) {
         double ret = 0.0;
         if (args.isEmpty()) {
             System.out.println("Illegal call: (-)");
             System.exit(1);
-        } else if (args.size() == 1) {
-            ret = -args.get(0);
-        } else {
-            ret =  args.get(0);
-            for (int i = 1; i < args.size(); i++)
-                ret = ret -  args.get(i);
         }
-        return ret;
+        else if (args.size() == 1) {
+            ret = -args.get(0).getDouble();
+        }
+        else {
+            ret = args.get(0).getDouble();
+            for (int i = 1; i < args.size(); i++)
+                ret = ret - args.get(i).getDouble();
+        }
+
+        return new Val(ret);
     }
-}
+} 

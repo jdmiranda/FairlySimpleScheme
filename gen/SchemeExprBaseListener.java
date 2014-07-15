@@ -88,18 +88,6 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDefl(@NotNull SchemeExprParser.DeflContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -112,6 +100,18 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProgl(@NotNull SchemeExprParser.ProglContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -119,18 +119,6 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgl(@NotNull SchemeExprParser.ProglContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBeginl(@NotNull SchemeExprParser.BeginlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBeginl(@NotNull SchemeExprParser.BeginlContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

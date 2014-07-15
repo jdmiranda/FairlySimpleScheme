@@ -1,6 +1,5 @@
-
-/******************
- * ApplyPlus.java
+/****************** 
+ * ApplyPlus.java 
  *****************/
 import java.util.List;
 
@@ -14,5 +13,4 @@ public class ApplyPlus implements Apply {
         return new Val(ret);
     }
 
-}
-
+} 

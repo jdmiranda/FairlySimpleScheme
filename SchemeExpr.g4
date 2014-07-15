@@ -6,7 +6,8 @@ grammar SchemeExpr;
 prog: expr+ # progl 
  ; 
  
-expr: '(' op=rator expr* ')'    # appl
+expr: '(' BEGIN expr* ')'        # appl
+ | '(' op=rator expr* ')'       # appl
  | DOUBLE                       # doublel
  | BOOLEAN                      # booleanl
  | ID                           # idl
@@ -14,7 +15,6 @@ expr: '(' op=rator expr* ')'    # appl
  | '(' IF expr expr expr ')'    # ifl
  | '(' PRINT expr ')'           # printl
  | '(' WHILE expr expr ')'      # whilel
- | '(' BEGIN expr ')'           # beginl
  ; 
  
 rator: arithRator 
