@@ -6,12 +6,15 @@ grammar SchemeExpr;
 prog: expr+ # progl 
  ; 
  
-expr: '(' op=rator expr* ')' # appl 
- | DOUBLE # doublel 
- | BOOLEAN # booleanl 
- | ID # idl 
- | '(' DEF ID expr ')' # defl 
- | '(' IF expr expr expr ')' # ifl 
+expr: '(' op=rator expr* ')'    # appl
+ | DOUBLE                       # doublel
+ | BOOLEAN                      # booleanl
+ | ID                           # idl
+ | '(' DEF ID expr ')'          # defl
+ | '(' IF expr expr expr ')'    # ifl
+ | '(' PRINT expr ')'           # printl
+ | '(' WHILE expr expr ')'      # whilel
+ | '(' BEGIN expr ')'           # beginl
  ; 
  
 rator: arithRator 
@@ -29,7 +32,10 @@ booleanRator: AND|OR|NOT
  ; 
  
 DEF: 'def'; 
-IF: 'if'; 
+IF: 'if';
+PRINT: 'print';
+WHILE: 'while';
+BEGIN: 'begin';
 BOOLEAN:'true' | 'false'; 
 fragment 
 DIGIT: [0-9]; 
