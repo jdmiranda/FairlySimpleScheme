@@ -1,16 +1,18 @@
-/***********
+
+/******************
  * ApplyPlus.java
- ***********/
+ *****************/
 import java.util.List;
 
 public class ApplyPlus implements Apply {
 
-    public Object apply(List<Double> args) {
+    public Val apply(List<Val> args) {
         double ret = 0.0;
-        for (Double v : args) {
-            ret +=   v;
+        for (Val v : args) {
+            ret += v.getDouble();
         }
-        return ret;
+        return new Val(ret);
     }
 
 }
+

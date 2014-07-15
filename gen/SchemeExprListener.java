@@ -8,6 +8,26 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface SchemeExprListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#arithRator}.
+	 * @param ctx the parse tree
+	 */
+	void enterArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#arithRator}.
+	 * @param ctx the parse tree
+	 */
+	void exitArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#doublel}.
 	 * @param ctx the parse tree
 	 */
@@ -28,15 +48,35 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 */
 	void exitIfl(@NotNull SchemeExprParser.IflContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * Enter a parse tree produced by {@link SchemeExprParser#relationalRator}.
 	 * @param ctx the parse tree
 	 */
-	void enterBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+	void enterRelationalRator(@NotNull SchemeExprParser.RelationalRatorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SchemeExprParser#boolean}.
+	 * Exit a parse tree produced by {@link SchemeExprParser#relationalRator}.
 	 * @param ctx the parse tree
 	 */
-	void exitBoolean(@NotNull SchemeExprParser.BooleanContext ctx);
+	void exitRelationalRator(@NotNull SchemeExprParser.RelationalRatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#booleanRator}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#booleanRator}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#rator}.
+	 * @param ctx the parse tree
+	 */
+	void enterRator(@NotNull SchemeExprParser.RatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#rator}.
+	 * @param ctx the parse tree
+	 */
+	void exitRator(@NotNull SchemeExprParser.RatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#defl}.
 	 * @param ctx the parse tree
@@ -58,16 +98,6 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 */
 	void exitProgl(@NotNull SchemeExprParser.ProglContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SchemeExprParser#idl}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdl(@NotNull SchemeExprParser.IdlContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SchemeExprParser#idl}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdl(@NotNull SchemeExprParser.IdlContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#appl}.
 	 * @param ctx the parse tree
 	 */
@@ -77,4 +107,14 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAppl(@NotNull SchemeExprParser.ApplContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#idl}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdl(@NotNull SchemeExprParser.IdlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#idl}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdl(@NotNull SchemeExprParser.IdlContext ctx);
 }
