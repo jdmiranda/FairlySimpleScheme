@@ -107,6 +107,17 @@ public interface SchemeExprListener extends ParseTreeListener {
 	void exitProgl(@NotNull SchemeExprParser.ProglContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#beginl}.
+	 * @param ctx the parse tree
+	 */
+	void enterBeginl(@NotNull SchemeExprParser.BeginlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#beginl}.
+	 * @param ctx the parse tree
+	 */
+	void exitBeginl(@NotNull SchemeExprParser.BeginlContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#appl}.
 	 * @param ctx the parse tree
 	 */

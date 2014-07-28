@@ -94,24 +94,22 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
         Val ret = new Val();
         while (visit(ctx.expr(0)).getBoolean()) {
             ret = visit(ctx.expr(1));
-            return ret;
         }
         return ret;
 
     }
 
-   /* public Val visitBeginl(SchemeExprParser.BeginlContext ctx) {
-        List<Val> ls = new ArrayList<Val>();
+    public Val visitBeginl(SchemeExprParser.BeginlContext ctx) {
+       Val ret = new Val();
         for (SchemeExprParser.ExprContext expr : ctx.expr())
-            ls.add(visit(expr));
-        return  ls(ls.size - 1);
-
+            ret = visit(expr);
+        return ret;
     }
-*/
-    public Val visitPrintl(SchemeExprParser.PrintlContext ctx) {
 
-        System.out.println(visit(ctx.expr()));
-        return visit(ctx.expr());
+    public Val visitPrintl(SchemeExprParser.PrintlContext ctx) {
+        Val ret = visit(ctx.expr());
+        System.out.println(ret);
+        return ret;
     }
 }
 

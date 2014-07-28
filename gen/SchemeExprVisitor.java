@@ -47,23 +47,29 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRelationalRator(@NotNull SchemeExprParser.RelationalRatorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SchemeExprParser#defl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDefl(@NotNull SchemeExprParser.DeflContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#booleanRator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBooleanRator(@NotNull SchemeExprParser.BooleanRatorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#defl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefl(@NotNull SchemeExprParser.DeflContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#progl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitProgl(@NotNull SchemeExprParser.ProglContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#beginl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBeginl(@NotNull SchemeExprParser.BeginlContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#idl}.
 	 * @param ctx the parse tree

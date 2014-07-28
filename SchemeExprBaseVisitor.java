@@ -89,6 +89,14 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitBeginl(@NotNull SchemeExprParser.BeginlContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitAppl(@NotNull SchemeExprParser.ApplContext ctx) { return visitChildren(ctx); }
 
 	/**

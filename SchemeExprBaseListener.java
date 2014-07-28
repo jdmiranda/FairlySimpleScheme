@@ -133,6 +133,19 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBeginl(@NotNull SchemeExprParser.BeginlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBeginl(@NotNull SchemeExprParser.BeginlContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAppl(@NotNull SchemeExprParser.ApplContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -74,6 +74,13 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitProgl(@NotNull SchemeExprParser.ProglContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#beginl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBeginl(@NotNull SchemeExprParser.BeginlContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#appl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
