@@ -18,13 +18,6 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitWhilel(@NotNull SchemeExprParser.WhilelContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link SchemeExprParser#booleanl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#arithRator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -32,11 +25,25 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#doublel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDoublel(@NotNull SchemeExprParser.DoublelContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#letvardecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#printl}.
@@ -93,6 +100,13 @@ public interface SchemeExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdl(@NotNull SchemeExprParser.IdlContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link SchemeExprParser#letl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLetl(@NotNull SchemeExprParser.LetlContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link SchemeExprParser#ifl}.

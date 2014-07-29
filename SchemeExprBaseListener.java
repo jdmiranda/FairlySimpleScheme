@@ -29,19 +29,6 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -55,6 +42,19 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDoublel(@NotNull SchemeExprParser.DoublelContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -62,6 +62,19 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDoublel(@NotNull SchemeExprParser.DoublelContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -166,6 +179,19 @@ public class SchemeExprBaseListener implements SchemeExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdl(@NotNull SchemeExprParser.IdlContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLetl(@NotNull SchemeExprParser.LetlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLetl(@NotNull SchemeExprParser.LetlContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

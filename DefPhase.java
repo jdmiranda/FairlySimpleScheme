@@ -45,7 +45,7 @@ public class DefPhase extends SchemeExprBaseListener {
         currentScope = currentScope.getEnclosingScope();
     }
 
-    public void exitDefinel(SchemeExprParser.DefinelContext ctx) {
+    public void exitDefl(SchemeExprParser.DeflContext ctx) {
         defineVar(ctx.ID().getSymbol());
     }
 
@@ -54,10 +54,10 @@ public class DefPhase extends SchemeExprBaseListener {
     }
 
     //could have to change this, i think i changed it to Definel up above
-    void defineVar(SchemeExprParser.TypeContext typeCtx, Token nameToken) {
+    /*void defineVar(SchemeExprParser.TypeContext typeCtx, Token nameToken) {
         int typeTokenType = typeCtx.start.getType();
         Symbol.Type type = SchemeExprDriver.getType(typeTokenType);
         VariableSymbol var = new VariableSymbol(nameToken.getText(), type);
         currentScope.define(var);
-    }
+    }*/
 }

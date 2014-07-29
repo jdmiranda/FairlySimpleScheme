@@ -19,17 +19,6 @@ public interface SchemeExprListener extends ParseTreeListener {
 	void exitWhilel(@NotNull SchemeExprParser.WhilelContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link SchemeExprParser#booleanl}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SchemeExprParser#booleanl}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#arithRator}.
 	 * @param ctx the parse tree
 	 */
@@ -41,6 +30,17 @@ public interface SchemeExprListener extends ParseTreeListener {
 	void exitArithRator(@NotNull SchemeExprParser.ArithRatorContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#booleanl}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanl(@NotNull SchemeExprParser.BooleanlContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#doublel}.
 	 * @param ctx the parse tree
 	 */
@@ -50,6 +50,17 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDoublel(@NotNull SchemeExprParser.DoublelContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#letvardecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#letvardecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#printl}.
@@ -138,6 +149,17 @@ public interface SchemeExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdl(@NotNull SchemeExprParser.IdlContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link SchemeExprParser#letl}.
+	 * @param ctx the parse tree
+	 */
+	void enterLetl(@NotNull SchemeExprParser.LetlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SchemeExprParser#letl}.
+	 * @param ctx the parse tree
+	 */
+	void exitLetl(@NotNull SchemeExprParser.LetlContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link SchemeExprParser#ifl}.
