@@ -29,14 +29,7 @@ public class SchemeExprDriver {
 
 
 public class SchemeExprDriver {
-    public static Symbol.Type getType(int tokenType) {
-        switch ( tokenType ) {
-            case SchemeExprParser.K_VOID :  return Symbol.Type.tVOID;
-            case SchemeExprParser.K_INT :   return Symbol.Type.tINT;
-            case SchemeExprParser.K_FLOAT : return Symbol.Type.tFLOAT;
-        }
-        return Symbol.Type.tINVALID;
-    }
+
 
     public static void error(Token t, String msg) {
         System.err.printf("line %d:%d %s\n", t.getLine(), t.getCharPositionInLine(),

@@ -7,21 +7,21 @@ public class DefPhase extends SchemeExprBaseListener {
     ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
     GlobalScope globals;
     Scope currentScope;
-    public void enterFile(SchemeExprParser.FileContext ctx) {
+    public void enterProgl(SchemeExprParser.ProglContext ctx) {
         globals = new GlobalScope(null);
         currentScope = globals;
     }
 
-    public void exitFile(SchemeExprParser.FileContext ctx) {
+    public void exitProgl(SchemeExprParser.ProglContext ctx) {
         System.out.println(globals);
     }
 
-    public void enterFunctionDecl(SchemeExprParser.FunctionDeclContext ctx) {
+    public void enterLetl(SchemeExprParser.LetlContext ctx) {
         String name = ctx.ID().getText();
-        int typeTokenType = ctx.type().start.getType();
-        Symbol.Type type = SchemeExprDriver.getType(typeTokenType);
+        //int typeTokenType = ctx.type().start.getType();
+        //Symbol.Type type = SchemeExprDriver.getType(typeTokenType);
 
-        FunctionSymbol function = new FunctionSymbol(name, type, currentScope);
+        FunctionSymbol function = new FunctionSymbol(name, val, currentScope);
         currentScope.define(function);
         saveScope(ctx, function);
         currentScope = function;
@@ -29,30 +29,31 @@ public class DefPhase extends SchemeExprBaseListener {
 
     void saveScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
 
-    public void exitFunctionDecl(SchemeExprParser.FunctionDeclContext ctx) {
+    public void exitLetl(SchemeExprParser.LetlContext ctx) {
         System.out.println(currentScope);
         currentScope = currentScope.getEnclosingScope();
     }
 
-    public void enterBlock(SchemeExprParser.BlockContext ctx) {
+    public void enterLetvardecl(SchemeExprParser.LetvardeclContext ctx) {
 
         currentScope = new LocalScope(currentScope);
         saveScope(ctx, currentScope);
     }
 
-    public void exitBlock(SchemeExprParser.BlockContext ctx) {
+    public void exitLetvardecl(SchemeExprParser.LetvardeclContext ctx) {
         System.out.println(currentScope);
         currentScope = currentScope.getEnclosingScope();
     }
 
-    public void exitFormalParameter(SchemeExprParser.FormalParameterContext ctx) {
-        defineVar(ctx.type(), ctx.ID().getSymbol());
+    public void exitDefinel(SchemeExprParser.DefinelContext ctx) {
+        defineVar(ctx.ID().getSymbol());
     }
 
-    public void exitVarDecl(SchemeExprParser.VarDeclContext ctx) {
-        defineVar(ctx.type(), ctx.ID().getSymbol());
+    public void exitLetl(SchemeExprParser.LetllContext ctx) {
+        letvardecl(ctx.ID().getSymbol());
     }
 
+    //could have to change this, i think i changed it to Definel up above
     void defineVar(SchemeExprParser.TypeContext typeCtx, Token nameToken) {
         int typeTokenType = typeCtx.start.getType();
         Symbol.Type type = SchemeExprDriver.getType(typeTokenType);

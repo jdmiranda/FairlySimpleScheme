@@ -5,8 +5,8 @@ public class FunctionSymbol extends Symbol implements Scope {
     Map<String, Symbol> arguments = new LinkedHashMap<String, Symbol>();
     Scope enclosingScope;
 
-    public FunctionSymbol(String name, Type retType, Scope enclosingScope) {
-        super(name, retType);
+    public FunctionSymbol(String name, Val retVal, Scope enclosingScope) {
+        super(name, retVal);
         this.enclosingScope = enclosingScope;
     }
 

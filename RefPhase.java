@@ -10,25 +10,25 @@ public class RefPhase extends SchemeExprBaseListener {
         this.scopes = scopes;
         this.globals = globals;
     }
-    public void enterFile(SchemeExprParser.FileContext ctx) {
+    public void enterProgl(SchemeExprParser.ProglContext ctx) {
         currentScope = globals;
     }
 
-    public void enterFunctionDecl(SchemeExprParser.FunctionDeclContext ctx) {
+    public void enterLetl(SchemeExprParser.LetlContext ctx) {
         currentScope = scopes.get(ctx);
     }
-    public void exitFunctionDecl(SchemeExprParser.FunctionDeclContext ctx) {
+    public void exitLetl(SchemeExprParser.LetlContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
-    public void enterBlock(SchemeExprParser.BlockContext ctx) {
+    public void enterLetvardecl(SchemeExprParser.LetvardeclContext ctx) {
         currentScope = scopes.get(ctx);
     }
-    public void exitBlock(SchemeExprParser.BlockContext ctx) {
+    public void exitLetvardecl(SchemeExprParser.LetvardeclContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
-    public void exitVar(SchemeExprParser.VarContext ctx) {
+    public void exitExpr(SchemeExprParser.ExprContext ctx) {
         String name = ctx.ID().getSymbol().getText();
         Symbol var = currentScope.resolve(name);
         if ( var==null ) {
@@ -39,7 +39,7 @@ public class RefPhase extends SchemeExprBaseListener {
         }
     }
 
-    public void exitCall(SchemeExprParser.CallContext ctx) {
+    public void exitDefinel(SchemeExprParser.DefinelContext ctx) {
 
         String funcName = ctx.ID().getText();
         Symbol meth = currentScope.resolve(funcName);
