@@ -111,5 +111,30 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
         System.out.println(ret);
         return ret;
     }
+
+    public Val visitLetl(SchemeExprParser.LetlContext ctx) {
+        // evaluate let variable declaration:
+        // its evaluation annotates the vardec node
+        // with the new environment
+        propEnv(ctx, ctx.letvardec());
+        visit(ctx.letvardec());
+        // grab new extended environment
+        Environment newenv = getEnv(ctx.letvardec());
+        // evaluate let body in new environment
+        setEnv(ctx.expr(), newenv);
+        return visit(ctx.expr());
+    }
+
+    ParseTreeProperty<Environment> envs = new ParseTreeProperty<Environment>();
+    public void setEnv(ParseTree node, Environment env) {
+        envs.put(node, env);
+    }
+    public Environment getEnv(ParseTree node) {
+        return envs.get(node);
+    }
+    // for propogating the parent's environment to its children
+    public void propEnv(ParseTree parent, ParseTree child) {
+        setEnv(child, getEnv(parent));
+    }
 }
 
