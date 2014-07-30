@@ -33,6 +33,7 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
         // evaluate operands and collect their values
         List<Val> args = new ArrayList<Val>();
         for (SchemeExprParser.ExprContext expr : ctx.expr())
+        propEnv(ctx, expr);
             args.add(visit(expr));
         // apply operator to args
         Val res = new Val();
@@ -135,6 +136,10 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
     // for propogating the parent's environment to its children
     public void propEnv(ParseTree parent, ParseTree child) {
         setEnv(child, getEnv(parent));
+    }
+
+    public Val visitLetvardecl(SchemeExprParser.LetvardeclContext ctx){
+
     }
 }
 
