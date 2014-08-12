@@ -1,20 +1,15 @@
-/********************* 
- * SchemeEvalVisitor.java 
- ********************/
-
+/**********************
+ * SchemeEvalVisitor.java
+ * Adding let expressions
+ **********************/
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
 import java.util.*;
-import java.lang.Iterable;
-
-
-public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
-{
-
+public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
     static Apply plus = new ApplyPlus();
     static Apply minus = new ApplyMinus();
-    static Apply times = new ApplyMul();
+    static Apply times = new ApplyTimes();
     static Apply div = new ApplyDiv();
     static Apply eq = new ApplyEq();
     static Apply gt = new ApplyGt();
@@ -22,20 +17,29 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
     static Apply and = new ApplyAnd();
     static Apply or = new ApplyOr();
     static Apply not = new ApplyNot();
-
-    HashMap<String,Val> symbols;
-
-    public SchemeEvalVisitor() {
-        symbols = new HashMap<String,Val>();
+    // environment
+    ParseTreeProperty<Environment> envs =
+            new ParseTreeProperty<Environment>();
+    public void setEnv(ParseTree node, Environment env) {
+        envs.put(node, env);
     }
-
+    public Environment getEnv(ParseTree node) {
+        return envs.get(node);
+    }
+    // for propogating the parent's environment to its children
+    public void propEnv(ParseTree parent, ParseTree child) {
+        setEnv(child, getEnv(parent));
+    }
+    // top-level environment
+    Environment topEnv;
     public Val visitAppl(SchemeExprParser.ApplContext ctx) {
-        // evaluate operands and collect their values
+// evaluate operands and collect their values
         List<Val> args = new ArrayList<Val>();
-        for (SchemeExprParser.ExprContext expr : ctx.expr())
-        propEnv(ctx, expr);
+        for (SchemeExprParser.ExprContext expr : ctx.expr()) {
+            propEnv(ctx, expr);
             args.add(visit(expr));
-        // apply operator to args
+        }
+// apply operator to args
         Val res = new Val();
         switch (ctx.op.getText().charAt(0)) {
             case '+': res = plus.apply(args); break;
@@ -53,93 +57,98 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val>
     }
     public Val visitDefl(SchemeExprParser.DeflContext ctx) {
         String id = ctx.ID().getText();
+        propEnv(ctx, ctx.expr());
         Val val = visit(ctx.expr());
-        symbols.put(id, val);
+// create binding in top environment
+        topEnv.addEntry(id, val);
         return val;
     }
-
     public Val visitIdl(SchemeExprParser.IdlContext ctx) {
-        Val val = symbols.get(ctx.ID().getText());
-        if (val == null)
-            val = new Val();
+        Val val = getEnv(ctx).get(ctx.ID().getText());
         return val;
     }
-
     public Val visitProgl(SchemeExprParser.ProglContext ctx) {
+        topEnv = new TopEnvironment();
+        setEnv(ctx, topEnv);
         int n = ctx.getChildCount();
-        Val res = null;
         for (int i = 0; i < n; i++) {
-            res = visit(ctx.expr(i));
+            propEnv(ctx, ctx.expr(i));
+            Val res = visit(ctx.expr(i));
+            System.out.println(res);
         }
-        System.out.println(res);
-        return res;
+        return new Val();
     }
-
     public Val visitDoublel(SchemeExprParser.DoublelContext ctx) {
         return new Val(Double.valueOf(ctx.DOUBLE().getText()));
     }
-
     public Val visitBooleanl(SchemeExprParser.BooleanlContext ctx) {
         return new Val(Boolean.valueOf(ctx.BOOLEAN().getText()));
     }
-
-    public Val visitIfl(SchemeExprParser.IflContext ctx) {
-        Boolean test = visit(ctx.expr(0)).getBoolean();
-        if (test)
-            return visit(ctx.expr(1));
-        else
-            return visit(ctx.expr(2));
-    }
-
-    public Val visitWhilel(SchemeExprParser.WhilelContext ctx) {
-        Val ret = new Val();
-        while (visit(ctx.expr(0)).getBoolean()) {
-            ret = visit(ctx.expr(1));
-        }
-        return ret;
-
-    }
-
-    public Val visitBeginl(SchemeExprParser.BeginlContext ctx) {
-       Val ret = new Val();
-        for (SchemeExprParser.ExprContext expr : ctx.expr())
-            ret = visit(expr);
-        return ret;
-    }
-
-    public Val visitPrintl(SchemeExprParser.PrintlContext ctx) {
-        Val ret = visit(ctx.expr());
-        System.out.println(ret);
-        return ret;
-    }
-
     public Val visitLetl(SchemeExprParser.LetlContext ctx) {
-        // evaluate let variable declaration:
-        // its evaluation annotates the vardec node
-        // with the new environment
+// evaluate let variable declaration:
+// its evaluation annotates the vardec node
+// with the new environment
         propEnv(ctx, ctx.letvardec());
         visit(ctx.letvardec());
-        // grab new extended environment
+// grab new environment
         Environment newenv = getEnv(ctx.letvardec());
-        // evaluate let body in new environment
+// evaluate let body in new environment
         setEnv(ctx.expr(), newenv);
         return visit(ctx.expr());
     }
-
-    ParseTreeProperty<Environment> envs = new ParseTreeProperty<Environment>();
-    public void setEnv(ParseTree node, Environment env) {
-        envs.put(node, env);
+    public Val visitLetvardecl(SchemeExprParser.LetvardeclContext
+                                       ctx) {
+        ParseTree idnode = ctx.ID();
+        ParseTree randnode = ctx.expr();
+// evaluate operand
+        propEnv(ctx, randnode);
+        Val val = visit(randnode);
+// create environment with new binding
+        Environment newenv = new ExtendedEnvironment(getEnv(ctx));
+        newenv.addEntry(idnode.getText(), val);
+// annotate this node with newenv
+        setEnv(ctx, newenv);
+        return new Val();
     }
-    public Environment getEnv(ParseTree node) {
-        return envs.get(node);
+    public Val visitIfl(SchemeExprParser.IflContext ctx) {
+        propEnv(ctx, ctx.expr(0));
+        Boolean test = visit(ctx.expr(0)).getBoolean();
+        if (test) {
+            propEnv(ctx, ctx.expr(1));
+            return visit(ctx.expr(1));
+        } else {
+            propEnv(ctx, ctx.expr(2));
+            return visit(ctx.expr(2));
+        }
     }
-    // for propogating the parent's environment to its children
-    public void propEnv(ParseTree parent, ParseTree child) {
-        setEnv(child, getEnv(parent));
+    public Val visitPrintl(SchemeExprParser.PrintlContext ctx) {
+        propEnv(ctx, ctx.expr());
+        Val res = visit(ctx.expr());
+        System.out.println(res);
+        return res;
     }
-
-    public Val visitLetvardecl(SchemeExprParser.LetvardeclContext ctx){
-
+    public Val visitWhilel(SchemeExprParser.WhilelContext ctx) {
+        ParseTree testexpr = ctx.expr(0);
+        ParseTree bodyexpr = ctx.expr(1);
+        propEnv(ctx, testexpr);
+        propEnv(ctx, bodyexpr);
+        Val res = new Val();
+        while (true) {
+            Boolean test = visit(testexpr).getBoolean();
+            if (test) {
+                res = visit(bodyexpr);
+            } else {
+                break;
+            }
+        }
+        return res;
+    }
+    public Val visitBeginl(SchemeExprParser.BeginlContext ctx) {
+        Val res = new Val();
+        for (SchemeExprParser.ExprContext expr : ctx.expr()) {
+            propEnv(ctx, expr);
+            res = visit(expr);
+        }
+        return res;
     }
 }
-

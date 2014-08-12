@@ -1,11 +1,11 @@
 /***********
- * ApplyMul.java
+ * ApplyTimes.java
  ***********/
 import java.util.List;
 
 
 
-public class ApplyMul implements Apply {
+public class ApplyTimes implements Apply {
     public Val apply(List<Val> args) {
         double ret = 0.0;
         for (Val v : args) {
