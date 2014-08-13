@@ -1,11 +1,10 @@
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.*;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 
 public class SchemeExprDriver {

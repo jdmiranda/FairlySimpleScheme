@@ -41,7 +41,7 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDoublel(@NotNull SchemeExprParser.DoublelContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -49,7 +49,7 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLetvardecl(@NotNull SchemeExprParser.LetvardeclContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDoublel(@NotNull SchemeExprParser.DoublelContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -121,6 +121,14 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFunl(@NotNull SchemeExprParser.FunlContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitLetl(@NotNull SchemeExprParser.LetlContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -130,6 +138,14 @@ public class SchemeExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIfl(@NotNull SchemeExprParser.IflContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCalll(@NotNull SchemeExprParser.CalllContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

@@ -1,7 +1,7 @@
 /********************* 
  * ApplyAnd.java
  *********************/
-import java.lang.Boolean;
+
 import java.util.List;
 
 class ApplyAnd implements Apply {

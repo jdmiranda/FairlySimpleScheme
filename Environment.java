@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public abstract class Environment {
     HashMap<String,Val> map;
+
     public Environment() {
         this.map = new HashMap<String,Val>();
     }

@@ -2,36 +2,42 @@
  * SchemeEvalVisitor.java
  * Adding let expressions
  **********************/
+
 import org.antlr.v4.runtime.tree.*;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.ParserRuleContext;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+
 public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
-    static Apply plus = new ApplyPlus();
-    static Apply minus = new ApplyMinus();
-    static Apply times = new ApplyTimes();
-    static Apply div = new ApplyDiv();
-    static Apply eq = new ApplyEq();
-    static Apply gt = new ApplyGt();
-    static Apply lt = new ApplyLt();
-    static Apply and = new ApplyAnd();
-    static Apply or = new ApplyOr();
-    static Apply not = new ApplyNot();
-    // environment
+    private static final Apply plus = new ApplyPlus();
+    private static final Apply minus = new ApplyMinus();
+    private static final Apply times = new ApplyTimes();
+    private static final Apply div = new ApplyDiv();
+    private static final Apply eq = new ApplyEq();
+    private static final Apply gt = new ApplyGt();
+    private static final Apply lt = new ApplyLt();
+    private static final Apply and = new ApplyAnd();
+    private static final Apply or = new ApplyOr();
+    private static final Apply not = new ApplyNot();
+    private static Fun fun = new Fun();
+
     ParseTreeProperty<Environment> envs =
             new ParseTreeProperty<Environment>();
-    public void setEnv(ParseTree node, Environment env) {
+    void setEnv(ParseTree node, Environment env) {
         envs.put(node, env);
     }
-    public Environment getEnv(ParseTree node) {
+
+    Environment getEnv(ParseTree node) {
         return envs.get(node);
     }
-    // for propogating the parent's environment to its children
-    public void propEnv(ParseTree parent, ParseTree child) {
+    // for propagating the parent's environment to its children
+
+    void propEnv(ParseTree parent, ParseTree child) {
         setEnv(child, getEnv(parent));
     }
     // top-level environment
-    Environment topEnv;
+
+    private Environment topEnv;
+
     public Val visitAppl(SchemeExprParser.ApplContext ctx) {
 // evaluate operands and collect their values
         List<Val> args = new ArrayList<Val>();
@@ -85,14 +91,9 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
         return new Val(Boolean.valueOf(ctx.BOOLEAN().getText()));
     }
     public Val visitLetl(SchemeExprParser.LetlContext ctx) {
-// evaluate let variable declaration:
-// its evaluation annotates the vardec node
-// with the new environment
         propEnv(ctx, ctx.letvardec());
         visit(ctx.letvardec());
-// grab new environment
         Environment newenv = getEnv(ctx.letvardec());
-// evaluate let body in new environment
         setEnv(ctx.expr(), newenv);
         return visit(ctx.expr());
     }
@@ -100,13 +101,10 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
                                        ctx) {
         ParseTree idnode = ctx.ID();
         ParseTree randnode = ctx.expr();
-// evaluate operand
         propEnv(ctx, randnode);
         Val val = visit(randnode);
-// create environment with new binding
         Environment newenv = new ExtendedEnvironment(getEnv(ctx));
         newenv.addEntry(idnode.getText(), val);
-// annotate this node with newenv
         setEnv(ctx, newenv);
         return new Val();
     }
@@ -149,6 +147,26 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
             propEnv(ctx, expr);
             res = visit(expr);
         }
+        return res;
+    }
+
+    public Val visitFunl(SchemeExprParser.FunlContext ctx) {
+        ParseTree idNode = ctx.ID();
+        ParseTree bodyNode = ctx.expr();
+        propEnv(ctx, bodyNode);
+        Val val = visit(bodyNode);
+        Environment newenv = new ExtendedEnvironment(getEnv(ctx));
+        newenv.addEntry(idNode.getText(), val);
+        setEnv(ctx, newenv);
+        return new Val();
+    }
+
+    public Val visitCalll(SchemeExprParser.CalllContext ctx) {
+        ParseTree funNode = ctx.expr(0);
+        ParseTree operandNode = ctx.expr(1);
+        propEnv(ctx, funNode);
+        Val arg = visit(funNode);
+        Val res = fun.apply(arg);
         return res;
     }
 }

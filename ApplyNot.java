@@ -1,8 +1,8 @@
 /*********************
  * ApplyNot.java
  *********************/
+
 import java.util.List;
-import java.lang.Boolean;
 
 class ApplyNot implements Apply {
     public Val apply(List<Val> args) {

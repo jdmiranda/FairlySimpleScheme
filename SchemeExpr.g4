@@ -7,7 +7,7 @@ prog: expr+ # progl
  ;
 
  
-expr: '(' op=rator expr* ')'       # appl
+expr: '(' op=rator expr* ')'    # appl
  | DOUBLE                       # doublel
  | BOOLEAN                      # booleanl
  | ID                           # idl
@@ -17,6 +17,8 @@ expr: '(' op=rator expr* ')'       # appl
  | '(' PRINT expr ')'           # printl
  | '(' WHILE expr expr ')'      # whilel
  | '(' BEGIN expr+ ')'          # beginl
+ | '(' FUN ID expr ')'          #funl
+ | '(' CALL expr expr ')'       #calll
  ;
 
  letvardec: '[' ID expr ']' #letvardecl
@@ -38,6 +40,8 @@ booleanRator: AND|OR|NOT
  
 DEF: 'def'; 
 IF: 'if';
+FUN: 'fun';
+CALL: 'call';
 PRINT: 'print';
 WHILE: 'while';
 BEGIN: 'begin';

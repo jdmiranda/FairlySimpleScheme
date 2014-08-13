@@ -1,8 +1,8 @@
 /*********************
  * ApplyOr.java
  *********************/
+
 import java.util.List;
-import java.lang.Boolean;
 
 class ApplyOr implements Apply {
     public Val apply(List<Val> args) {
