@@ -1,26 +1,24 @@
 /**********************
  * SchemeEvalVisitor.java
- * Adding let expressions
  **********************/
 
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
-    private static final Apply plus = new ApplyPlus();
-    private static final Apply minus = new ApplyMinus();
-    private static final Apply times = new ApplyTimes();
-    private static final Apply div = new ApplyDiv();
-    private static final Apply eq = new ApplyEq();
-    private static final Apply gt = new ApplyGt();
-    private static final Apply lt = new ApplyLt();
-    private static final Apply and = new ApplyAnd();
-    private static final Apply or = new ApplyOr();
-    private static final Apply not = new ApplyNot();
-    private static Fun fun = new Fun();
+class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
+    private static  Apply plus = new ApplyPlus();
+    private static  Apply minus = new ApplyMinus();
+    private static  Apply times = new ApplyTimes();
+    private static  Apply div = new ApplyDiv();
+    private static  Apply eq = new ApplyEq();
+    private static  Apply gt = new ApplyGt();
+    private static  Apply lt = new ApplyLt();
+    private static  Apply and = new ApplyAnd();
+    private static  Apply or = new ApplyOr();
+    private static  Apply not = new ApplyNot();
 
-    ParseTreeProperty<Environment> envs =
+    private  ParseTreeProperty<Environment> envs =
             new ParseTreeProperty<Environment>();
     void setEnv(ParseTree node, Environment env) {
         envs.put(node, env);
@@ -29,23 +27,22 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
     Environment getEnv(ParseTree node) {
         return envs.get(node);
     }
-    // for propagating the parent's environment to its children
+
 
     void propEnv(ParseTree parent, ParseTree child) {
         setEnv(child, getEnv(parent));
     }
-    // top-level environment
+
 
     private Environment topEnv;
 
     public Val visitAppl(SchemeExprParser.ApplContext ctx) {
-// evaluate operands and collect their values
         List<Val> args = new ArrayList<Val>();
         for (SchemeExprParser.ExprContext expr : ctx.expr()) {
             propEnv(ctx, expr);
             args.add(visit(expr));
         }
-// apply operator to args
+
         Val res = new Val();
         switch (ctx.op.getText().charAt(0)) {
             case '+': res = plus.apply(args); break;
@@ -65,7 +62,6 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
         String id = ctx.ID().getText();
         propEnv(ctx, ctx.expr());
         Val val = visit(ctx.expr());
-// create binding in top environment
         topEnv.addEntry(id, val);
         return val;
     }
@@ -153,20 +149,21 @@ public class SchemeEvalVisitor extends SchemeExprBaseVisitor<Val> {
     public Val visitFunl(SchemeExprParser.FunlContext ctx) {
         ParseTree idNode = ctx.ID();
         ParseTree bodyNode = ctx.expr();
+        String id = idNode.getText();
         propEnv(ctx, bodyNode);
-        Val val = visit(bodyNode);
-        Environment newenv = new ExtendedEnvironment(getEnv(ctx));
-        newenv.addEntry(idNode.getText(), val);
-        setEnv(ctx, newenv);
-        return new Val();
+        Fun function = new Fun(id, bodyNode, getEnv(ctx));
+        Val res = new Val(function);
+        return res;
     }
 
     public Val visitCalll(SchemeExprParser.CalllContext ctx) {
         ParseTree funNode = ctx.expr(0);
         ParseTree operandNode = ctx.expr(1);
         propEnv(ctx, funNode);
-        Val arg = visit(funNode);
-        Val res = fun.apply(arg);
+        Fun function = visit(funNode).getFun();
+        propEnv(ctx, operandNode);
+        Val arg = visit(operandNode);
+        Val res = function.apply(arg);
         return res;
     }
 }

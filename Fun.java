@@ -1,16 +1,14 @@
-import org.antlr.v4.runtime.tree.*;
-import org.antlr.*;
+/**********************
+ * Fun.java
+ *********************/
 
-public class Fun{
-    Environment env;
+import org.antlr.v4.runtime.tree.*;
+
+class Fun {
     String param;
     ParseTree body;
+    Environment env;
 
-
-
-    public Fun(){
-
-    }
     public Fun(String param, ParseTree body, Environment env) {
         this.param = param;
         this.body = body;
@@ -21,12 +19,12 @@ public class Fun{
         Environment newenv = new ExtendedEnvironment(env);
         newenv.addEntry(param, arg);
         SchemeEvalVisitor eval = new SchemeEvalVisitor();
-        eval.setEnv(body, env);
-        return eval.visit(body);
+        eval.setEnv(body, newenv);
+        Val res = eval.visit(body);
+        return res;
     }
 
     public String toString() {
         return "<fun>";
     }
-
 }

@@ -1,3 +1,5 @@
+import org.omg.CORBA.Environment;
+
 /**********************
  * Val.java 
  *********************/
@@ -10,6 +12,7 @@ public class Val {
     Boolean b;
     ValType curType;
     Fun f;
+    Environment environment;
 
     public Val() {
         this(0.0);
